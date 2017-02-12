@@ -1,0 +1,23 @@
+plugin.tx_jhmagnificpopupad {
+    settings {
+        each = TEXT
+        each.value = {$plugin.tx_jhmagnificpopup_ad.settings.each}
+
+        adsenseIframe = TEXT
+        adsenseIframe.value = {$plugin.tx_jhmagnificpopup_ad.settings.adsenseIframe}
+    }
+}
+
+page.jsFooterInline {
+    109.file = {$plugin.tx_jhmagnificpopup_ad.view.templateRootPath}TypoScript/Default.html
+}
+
+page.includeJSLibs {
+    adsbygoogle = //pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
+    adsbygoogle {
+        async = 1
+        disableCompression = 1
+        excludeFromConcatenation = 1
+        external = 1
+    }
+}

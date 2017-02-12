@@ -1,0 +1,63 @@
+;(function($) {
+    $('{selector}').each(function() {
+        $(this).magnificPopup({
+            delegate: 'a:isImageFile',
+            tClose: '<f:translate key="tClose" extensionName="JhMagnificpopup"></f:translate>',
+            type: 'image',
+            tLoading: '<f:translate key="tLoading" extensionName="JhMagnificpopup"></f:translate>',
+            mainClass: '<f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopup.settings.magnificpopup.templateVariables.mainClass" />',
+            gallery: {
+                enabled: <f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopup.settings.magnificpopup.templateVariables.galleryEnabled" />,
+                preload: <f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopup.settings.magnificpopup.templateVariables.galleryPreload" />,
+                navigateByImgClick: <f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopup.settings.magnificpopup.templateVariables.galleryNavigateByImgClick" />,
+                arrowMarkup: '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"></button>',
+                tPrev: '<f:translate key="tPrev" extensionName="JhMagnificpopup"></f:translate>',
+                tNext: '<f:translate key="tNext" extensionName="JhMagnificpopup"></f:translate>',
+                tCounter: '<f:translate key="tCounter" extensionName="JhMagnificpopup"></f:translate>'
+            },
+            image: {
+                cursor: '<f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopup.settings.magnificpopup.templateVariables.imageCursor" />',
+                titleSrc: 'title',
+                verticalGap: <f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopup.settings.magnificpopup.templateVariables.imageVerticalGap" />,
+                verticalFit: <f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopup.settings.magnificpopup.templateVariables.imageVerticalFit" />,
+                tError: '<f:translate key="tError" extensionName="JhMagnificpopup"></f:translate>'
+            },
+            iframe: {
+                markup: '<div class="mfp-iframe-scaler" style="height:auto;padding-top:90%;padding-top:calc(100% - 92px);">'+
+                    '<div class="mfp-close"></div>'+
+                    '<iframe class="mfp-iframe" frameborder="0" allowfullscreen style="box-shadow: none;background: none;"></iframe>'+
+                    '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
+            },
+            removalDelay: <f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopup.settings.magnificpopup.templateVariables.removalDelay" />,
+            callbacks: {
+                beforeOpen: function() {
+                    var each = <f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopupad.settings.each" />;
+                    var adsenseIframe = '<f:cObject typoscriptObjectPath="plugin.tx_jhmagnificpopupad.settings.adsenseIframe" />';
+
+                    if (!adsenseIframe) {
+                        console.warn('No adsense iFrame defined in constants for EXT:jh_magnificpopup_ad');
+                    }
+
+                    if (this.st.gallery.enabled && typeof adsbygoogle !== 'undefined' && each && adsenseIframe) {
+                        var adsenseItem = {
+                            src: adsenseIframe,
+                            type: 'iframe'
+                        };
+                        var itemsLength = this.items.length;
+                        var adsenseItemCount = Math.floor(itemsLength/each);
+                        if (itemsLength > each) {
+                            for (var i = adsenseItemCount; i > 0; i--) {
+                                this.items.splice(i * each, 0, adsenseItem);
+                            }
+                            this.index = Math.floor(this.index/each) + this.index;
+                        } else {
+                            this.items.push(adsenseItem);
+                        }
+
+                        this.updateItemHTML();
+                    }
+                }
+            },
+        });
+    });
+})(window.jQuery || window.Zepto);

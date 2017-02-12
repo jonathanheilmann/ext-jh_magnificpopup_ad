@@ -1,0 +1,12 @@
+plugin.tx_jhmagnificpopup_ad.view {
+	# cat=plugin.tx_jhmagnificpopup_ad/file; type=string; label=Path to template root
+	templateRootPath = EXT:jh_magnificpopup_ad/Resources/Private/Templates/
+}
+
+plugin.tx_jhmagnificpopup_ad.settings {
+	# cat=plugin.tx_jhmagnificpopup_ad/010; type=int+; label=Insert Ad after x items (set to 0 to disable)
+	each = 5
+
+	# cat=plugin.tx_jhmagnificpopup_ad/100; type=string; label=Path to your adsense iFrame
+	adsenseIframe =
+}
