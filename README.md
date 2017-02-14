@@ -10,7 +10,7 @@ You are using this extension on your own risk.
 ## Installation
 * Install Extension via Extension Manager
 * Include static template to your website template
-* Copy file `Resources/Private/TypoScript/AdsenseIframe.html` to fileadmin (or any other custom location)
+* Copy file `Resources/Private/Templates/TypoScript/AdsenseIframe.html` to fileadmin (or any other custom location)
 and set `data-ad-client` and `data-ad-slot` in line 13 and 14.
 * Set `adsenseIframe` in constants editor to path of your copied file from previous step
 * You're done and everything should work well.
